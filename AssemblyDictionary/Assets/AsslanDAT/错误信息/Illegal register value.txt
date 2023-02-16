@@ -1,0 +1,3 @@
+错误信息: Illegal register value
+
+中文注释: 指定的寄存器值不能放入"reg"字段中.(即"reg"字段大于7)

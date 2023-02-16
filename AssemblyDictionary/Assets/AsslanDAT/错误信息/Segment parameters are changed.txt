@@ -1,0 +1,3 @@
+错误信息: Segment parameters are changed
+
+中文注释: SEGMENT的自变量表与第一次使用这个段的情况不一样

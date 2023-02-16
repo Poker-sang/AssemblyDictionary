@@ -1,0 +1,16 @@
+ 减一指令 DEC(Decrement by 1) 
+
+ 格式: DEC OPRD 
+ ----
+
+ 功能: OPRD<--OPRD-1
+ ----
+
+ 说明: 1. OPRD 为寄存器或存储器操作数.
+ ---- 
+       2. 这条指令执行结果影响AF、OF、PF、SF、ZF标志位，但不影响CF标志位.
+ 
+       3. 示例 DEC AX
+               DEC CL 
+               DEC WORD PTR[DI] 
+               DEC ALFA[DI+BX]

@@ -1,0 +1,30 @@
+ 数据交换指令 XCHG
+
+ 格式: XCHG OPRD1,OPRD2 其中的OPRD1为目的操作数,OPRD2为源操作数
+ ----
+
+ 功能: 将两个操作数相互交换位置,该指令把源操作数OPRD2与目的操数OPRD1交换. 
+ ----
+
+ 说明: 1. OPRD1及OPRD2可为通用寄存器或存储器,但是两个存储器之间是不能用XCHG指令实现的.
+ ----
+       2. 段寄存器内容不能用XCHG指令来交换.
+
+ 
+          示例: XCHG AX,BX
+                XCHG SI,AX
+                XCHG CL,CH
+                XCHG DX,BUFFER 
+                XCHG CH,DATA2[SI] 
+                SCHG WORDA,CX
+ 
+       3. 若要实现两个存储器操作数DATA1及DATA2的交换,可用以下指令实现:
+          示例: PUSH DATA1
+                PUSH DATA2 
+                POP DATA1
+                POP DATA2
+
+          注意: 此处通过中间寄存器,也很容易实现两个存储器操作数的交换.
+
+       4. 本指令不影响状态标志位.
+

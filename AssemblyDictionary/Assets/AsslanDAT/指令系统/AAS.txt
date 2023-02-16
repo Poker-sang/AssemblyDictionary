@@ -1,0 +1,13 @@
+ 未组合十进制减法调整指令 AAS(ASCII Adjust for Subtraction)
+ 
+ 格式: AAS 
+ ----
+
+ 功能: 对两个未组合十进制数相减后存于AL中的结果进行调整,调整后产生一个未组合的十进制数数且仍存于AL中.
+ ----
+
+ 说明:  1. 本指令影响标志位CF及AF.
+ ----
+        2. 调整操作
+           若(AL) and 0FH > 9 或 AF=1
+           则(AL)<--(AL)-6,(AH)<--(AH)-1,CF<--AF,(AL)<--(AL) and 0FH,否则(AL)<--(AL) and 0FH

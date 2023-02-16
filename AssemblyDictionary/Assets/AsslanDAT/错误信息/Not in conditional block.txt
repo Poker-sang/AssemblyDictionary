@@ -1,0 +1,3 @@
+错误信息: Not in conditional block
+
+中文注释: 在没有提了供条件汇编指令的情况下,指定了ENDIF或ELSE

@@ -1,0 +1,3 @@
+错误信息: Must be var,label or constant
+
+中文注释: 需要的是变量,标号或常数,但得到的是其它内容

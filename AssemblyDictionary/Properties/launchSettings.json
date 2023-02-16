@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "AssemblyDictionary": {
+      "commandName": "MsixPackage"
+    }
+  }
+}

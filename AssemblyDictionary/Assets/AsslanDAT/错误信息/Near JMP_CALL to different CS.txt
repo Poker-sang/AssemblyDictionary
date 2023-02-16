@@ -1,0 +1,3 @@
+错误信息: Near JMP/CALL to different CS
+
+中文注释: 企图在不同的代码段内执行NEAR转移或调用

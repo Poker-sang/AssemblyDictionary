@@ -1,0 +1,3 @@
+错误信息: Wrong type of register
+
+中文注释: 指定的寄存器类型并不是指令中或伪操作中所要求的.例如ASSUME AX

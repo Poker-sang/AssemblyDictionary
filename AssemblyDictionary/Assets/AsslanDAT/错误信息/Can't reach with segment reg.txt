@@ -1,0 +1,3 @@
+错误信息: Can't reach with segment reg
+
+中文注释: 没有使变量可达到的ASSUME语句

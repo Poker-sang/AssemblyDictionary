@@ -1,0 +1,3 @@
+错误信息: Byte register is illegal
+
+中文注释: 在上下文中,使用一个字节寄存器是非法的.例如:PUSH AL.

@@ -1,0 +1,3 @@
+错误信息: DUP is too large for linker
+
+中文注释: DUP嵌套太长,以至于连接程序不能得到所要的记录

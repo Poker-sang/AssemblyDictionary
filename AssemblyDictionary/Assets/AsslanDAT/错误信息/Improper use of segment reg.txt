@@ -1,0 +1,3 @@
+错误信息: Improper use of segment reg
+
+中文注释: 段寄存器使用不合法.例如: 1 立即数传送到段寄存器

@@ -1,0 +1,3 @@
+错误信息: Already defined locally
+
+中文注释: 试图定义一个符号作为 EXTERNAL,但这个符号已经在局部定义过了

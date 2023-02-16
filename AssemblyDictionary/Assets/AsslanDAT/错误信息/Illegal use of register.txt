@@ -1,0 +1,3 @@
+错误信息: Illegal use of register
+
+中文注释: 在指令中使用了8088指令中没有的寄存器

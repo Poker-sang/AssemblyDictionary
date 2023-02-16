@@ -1,0 +1,11 @@
+ 组合十进制减法调整指令 DAS(Decimal Adjust for Subtraction) 
+
+ 格式: DAS  
+ ----
+
+ 功能: 对两个组合十进制数相减后存于AL中的结果进行调整,调整后产生一个组合的十进制数且仍存于AL中.
+ ----  
+
+ 说明: 调整操作
+ ----  若(AL) and 0FH > 9 或 AF=1,则(AL)<--(AL)-6,AF=1
+       若(AL) and 0F0H > 90H 或 CF=1,则(AL)<--(AL)-60,CF=1

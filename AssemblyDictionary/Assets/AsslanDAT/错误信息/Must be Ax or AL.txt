@@ -1,0 +1,3 @@
+错误信息: Must be Ax or AL
+
+中文注释: 某些指令只能用AX或AL.例如:IN 指令

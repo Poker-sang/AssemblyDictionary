@@ -1,0 +1,3 @@
+错误信息: Must be index or base register
+
+中文注释: 指令需要基址或变址寄存器,而指定的是其它寄存器.

@@ -1,0 +1,12 @@
+ 带借位减去指令 SBB(SuBtraction with Borrow) 
+
+ 格式: SBB OPRD1,OPRD2
+ ----
+ 
+ 功能: 是进行两个操作数的相减再减去CF进位标志位,即从OPRD1<--OPRD1-OPRD2-CF,其结果放在OPDR1中.指令的类型   ----  及对标志 位的影响与ADD指令相同,注意立即数不能用于目的操作数, 两个存储器操作数之间不能直接相减.操         作数可为8位或16位的无符号数或带符号数.
+
+ 说明: 示例  SBB DX,CX 
+ ----        SBB AX,DATA1  
+             SBB BX,2000H 
+             SBB ALFA[BX+SI],SI 
+             SBB BETAP[DI,030AH

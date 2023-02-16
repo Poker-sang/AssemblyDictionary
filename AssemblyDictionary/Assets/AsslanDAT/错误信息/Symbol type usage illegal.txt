@@ -1,0 +1,3 @@
+错误信息: Symbol type usage illegal
+
+中文注释: PUBLIC 符号的使用不合法

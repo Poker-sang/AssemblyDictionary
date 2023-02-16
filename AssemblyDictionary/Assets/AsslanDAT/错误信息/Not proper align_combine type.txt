@@ -1,0 +1,6 @@
+错误信息: Not proper align/combine type
+
+中文注释: SEGMENT参数不正确
+
+
+                           

@@ -1,0 +1,3 @@
+错误信息: Operand not in IP segment
+
+中文注释: 由于操作数不在当前IP段中,因此不能存取

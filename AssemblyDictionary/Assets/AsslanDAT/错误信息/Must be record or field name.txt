@@ -1,0 +1,3 @@
+错误信息: Must be record or field name
+
+中文注释: 需要的是记录名或字段名,但得到的是其它东西

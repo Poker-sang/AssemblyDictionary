@@ -1,0 +1,18 @@
+ 有效地址传送指令 LEA 
+
+ 格式: LEA OPRD1,OPRD2 
+ ----
+ 
+ 功能: 将源操作数给出的有效地址传送到指定的的寄存器中.
+ ----                                                                                       
+
+ 说明: 1. OPRD1 为目的操作数,可为任意一个16位的通用寄存器.
+ ----     OPRD2 为源操作数,可为变量名、标号或地址表达式.  
+
+          示例: LEA BX,DATA1 
+                LEA DX,BETA[BX+SI] 
+                LEA BX BX,[BP],[DI]
+ 
+          注意: 显然,LEA BX,DATA1的功能是将变量DATA1的地址送至BX,而不是将变量DATA1的值送BX,它等价于指令                  MOV BX,OFFSET DATA1 
+
+       2. 本指令对标志位无影响。

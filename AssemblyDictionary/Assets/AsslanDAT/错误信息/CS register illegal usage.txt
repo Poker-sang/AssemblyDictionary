@@ -1,0 +1,3 @@
+错误信息: CS register illegal usage
+
+中文注释: 试图非法使用CS寄存器.例如:XCHG CS,AX

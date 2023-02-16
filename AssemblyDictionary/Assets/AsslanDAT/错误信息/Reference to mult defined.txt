@@ -1,0 +1,3 @@
+错误信息: Reference to mult defined
+
+中文注释: 指令引用的内容已是多次定义过的

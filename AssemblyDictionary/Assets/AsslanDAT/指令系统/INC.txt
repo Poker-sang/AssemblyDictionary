@@ -1,0 +1,18 @@
+ 加1指令 INC(INCrement by 1) 
+
+ 格式: INC OPRD 
+ ----
+ 
+ 功能: OPRD<--OPRD+1
+ ----
+
+ 说明: 1. OPRD 为寄存器或存储器操作数.
+ ----
+       2. 这条指令执行结果影响AF、OF、PF、SF、ZF标志位,但不影响CF标志位.
+
+       3. 示例: INC SI                    ;(SI)<--(SI)+1
+                INC WORD PTR[BX] 
+                INC BYTE PTR[BX+DI] 
+                INC CL                    ;(CL)<--(CL)+1 
+
+          注意: 上述第二,三两条指令,是对存储字及存储字节的内容加1以替代原来的内容.在循环程序中,常用该指                  令对地址和循环计数值进行修改.

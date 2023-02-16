@@ -1,0 +1,3 @@
+错误信息: Type illegal in context
+
+中文注释: 指定的类型在长度步可接收

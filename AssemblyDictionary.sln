@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyDictionary", "AssemblyDictionary\AssemblyDictionary.csproj", "{B4137E35-C61F-450C-A525-DBF2599845C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{42609A01-CAE7-48A8-A25D-D39CED7BA3BB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|ARM64.Build.0 = Debug|ARM64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|x64.ActiveCfg = Debug|x64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|x64.Build.0 = Debug|x64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|x64.Deploy.0 = Debug|x64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|x86.ActiveCfg = Debug|x86
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|x86.Build.0 = Debug|x86
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Debug|x86.Deploy.0 = Debug|x86
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|ARM64.ActiveCfg = Release|ARM64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|ARM64.Build.0 = Release|ARM64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|ARM64.Deploy.0 = Release|ARM64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|x64.ActiveCfg = Release|x64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|x64.Build.0 = Release|x64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|x64.Deploy.0 = Release|x64
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|x86.ActiveCfg = Release|x86
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|x86.Build.0 = Release|x86
+		{B4137E35-C61F-450C-A525-DBF2599845C8}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D0BBEF8-81E0-4FEC-B346-6760A65978E6}
+	EndGlobalSection
+EndGlobal

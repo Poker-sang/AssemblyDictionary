@@ -1,0 +1,419 @@
+高级汇编语言技术 
+  
+一、宏汇编
+    宏定义是用一组伪操作来实现的。其格式是：
+    macro_name    MACRO    [dumny_parameter_list]
+                   ...     (宏定义体)
+                  ENDM
+其中MACRO和ENDM是一对伪操作.这对伪操作之间是宏定义体--是一组独立功能的程序代码.宏指令名(macro_name)给出该宏定义的名称,调用时就使用宏指令名来调用该宏定义.其中哑元表(dumny_parameter_list)给出了该宏定义中所用到的形式参数(或称虚参),每个哑元之间用逗号隔开.
+    经宏定义后的宏指令就可以在源程序中调用.这种对宏指令的调用称为宏调用,宏调用的格式是:
+    macro_name  [actual_parameter_list]
+实元表(actual_parameter_list)中的每一项为实元,相互之间用逗号隔开.
+
+1.宏定义可以无变元
+宏定义:
+    SAVEREG    MACRO
+               PUSH     AX
+               PUSH     BX
+               PUSH     CX
+               PUSH     DX
+               PUSH     SI
+               PUSH     DI
+               ENDM
+宏调用:
+               SAVEREG
+
+2.变元可以是操作码
+宏定义:
+    FOO    MACRO    P1,P2,P3
+           MOV       AX,P1
+           P2        P3
+           ENDM
+宏调用:
+           FOO       WORD_VAR,INC,AX
+宏展开:
+   +       MOV       AX,WORD_VAR
+   +       INC      AX
+
+3.变元可以是操作码的一部分,但在宏定义体中必须用&作为分隔符.
+宏定义:
+   LEAP    MACRO     COND,LAB
+            J&COND    LAB
+            ENDM
+宏调用:
+            ...
+            LEAP      Z,THERE
+            ...
+            LEAP      NZ,HERE
+            ...
+宏展开:
+            ...
+   +        JZ        THERE
+            ...
+   +        JNZ       HERE
+            ...
+
+4.&是一个操作符,它在宏定义体中可以作为哑元的前缀,展开时可以把&前后个符号合并而形成一个符号,这个符号可以是操作码,操作数或是一个字符串
+宏定义:
+    PO    MACRO    P1
+          JMP       TA&P1
+          ENDM
+宏调用:
+          FO        WORD_VAR
+宏展开:
+   +      JMP    TAWORD_VAR
+
+5.实元是ASCII串的情况
+宏定义:
+   MSGGEN    MACRO    LAB,NUM,XYZ
+             LAB&NUM   DB    'HELLO MR.&XYZ'
+             ENDM
+宏调用:
+             MSGGEN     MSG,1,TAYLOR
+宏展开:
+    +       MSG1    DB     'HELLO MR.TAYLOR'
+
+6.宏指令名可以与指令助记符或伪操作名相同,在这种情况下,宏指令的优先级最高,而同名的指令或伪操作就失效了.伪操作PURGE可以用来在适当的时候取消宏定义,以便恢复指令的原始含义.
+宏定义:
+    ADD    MACRO    OPR1,OPR2,RESULT
+           ...
+           ENDM
+宏调用:
+           ...
+           ADD     XX,YY,ZZ
+           PURGE  ADD
+           ...
+在宏调用后,用PURGE伪操作取消定义,以便恢复ADD指令的原始含义,在PURGE ADD后面所用的ADD指令,则服从机器指令的定义.
+    PURGE伪操作可同时取消多个宏操作,此时各宏指令之间用逗号隔开.
+
+7.LOCAL伪操作的使用.宏定义体内允许使用标号,如:
+宏定义:
+    ABSOL    MACRO    OPER
+             CMP       OPER,O
+             JGE       NEXT
+             NEG       OPER
+    NEXT:
+             ENDM
+如果程序中多次调用该宏定义时,展开后会出现标号的多重定义.为此系统提供了LOCAL伪操作,其格式是
+            LOCAL     list of local labels
+其中局部标号表内的各标号之间用逗号隔开.汇编程序对LOCAL伪操作的局部标号表中的每一个局部标号建立唯一的符号(用??0000~??FFFF)以代替在展开中存在的每个局部标号.必须注意,LOCAL伪操作只能用在宏定义体内,而且它必须是MACRO伪操作后的第一个语句,在MACRO和LOCAL伪操作之间还不允许有注释和分号标志.
+    本例中的ABSOL宏定义在考虑有多次调用可能性的情况下,应定义为:
+    ABSOL    MACRO    OPER
+             LOCAL    NEXT
+             CMP       OPER,0
+             JGE       NEXT
+             NEG       OPER
+    NEXT:  
+             ENDM
+宏调用:
+             ...
+           ABSOL       VAR
+             ...
+           ABSOL        BX
+             ...
+宏展开:
+            ...
+    +       CMP     VAR,0
+    +       JGE      ??0000
+    +       NEG     VAR
+    +??0000:
+             ...
+    +       CMP     BX,0
+    +       JGE      ??0001
+    +       NEG     BX
+    +??0001:
+            ...
+
+8.宏定义中允许使用宏调用,其限制条件是:必须先定义后调用
+宏定义:
+   DIF    MACRO    X,Y
+          MOV       AX,X
+          SUB       AX,Y
+          ENDM
+DIFSQR   MACRO    OPR1,OPR2,RESULT
+          PUSH     DX
+          PUSH     AX
+          DIF       OPR1,OPR2
+          IMUL     AX
+          MOV       RESULT,AX
+          POP       AX
+          POP       DX
+          ENDM
+宏调用:
+         DIFSQR      VAR1,VAR2,VAR3
+
+9.宏定义体内不仅可以使用宏调用,也可以包含宏定义.
+宏定义:
+   DEFMAC     MACRO       MACNAM,OPERATOR
+              MACNAM      MACRO        X,Y,Z
+                         PUSH         AX
+                         MOV          AX,X
+                         OPERATOR     AX,Y
+                         MOV          Z,AX
+                         POP          AX
+                         ENDM
+               ENDM
+其中MACNAM是内层的宏定义名,但又是外层宏定义的哑元,所以调用DEFMAC时,就形成一个宏定义.
+宏调用:
+        DEFMAC    ADDITION,ADD
+宏展开:
+    +     ADDITION     MACRO     X,Y,Z
+                       PUSH      AX
+                       MOV       AX,X
+                       ADD       AX,Y
+                       MOV       Z,AX
+                       POP       AX
+                       ENDM
+形成加法宏定义ADDITION.同样,宏调用
+         DEFMAC        SUBTRACT,SUB
+形成减法的宏定义.当然在形成这些宏定义后,就可以使用宏调用
+              ADDITION       VAR1,VAR2,VAR3
+而展开成:
+     +     PUSH      AX
+     +     MOV        AX,VAR1
+     +     ADD        AX,VAR2
+     +     MOV        VAR3,AX
+     +     POP        AX
+
+10.这里再介绍一个宏定义的变元中使用的伪操作%,它的格式是:
+       %expression
+汇编程序把跟在%之后的表达式的值转换成当前基数下的数,在展开期间,用这个数来取代哑元.
+宏定义:
+   MSG    MACRO    COUNT,STRING
+          MSG&COUNT DB     STRING
+          ENDM
+   ERRMSG MACRO   TEXT
+          CNTR=CNTR+1
+          MSG     % CNTR,TEXT
+          ENDM
+宏调用:
+         ...
+        CNTR=0
+        ERRMSG   'SYNTAX ERROR'
+        ...
+        ERRMSG   'INVALID OPERAND'
+        ...
+宏展开:
+         ...
+    +   MSG1    DB   'SYNTAX ERROR'
+         ...
+    +   MSG2    DB   'INVALID OPERAND'
+         ...
+
+
+
+二、重复汇编
+
+    有时汇编语言程序需要连续地重复完全相同的或者几乎完全相同的一组代码，这时可使用重复汇编。
+1.重复伪操作
+其格式为:
+    REPT    expression
+      ...   (重复块)
+    ENDM
+其中表达式的值用来确定重复块的重复次数,表达式中如包含外部或未定义的项则汇编指示出错.
+    重复伪操作并不一定要在宏定义体内,例如:
+X=0
+       REPT   10
+X=X+1
+       DB    X
+       ENDM
+则汇编后产生
+  +   DB    1
+  +   DB    2
+  +   DB    3
+     ...
+  +   DB    10
+把字符A到Z的ASCII码填入数组TABLE
+CHAR='A'
+TABLE  LABEL  BYTE
+       REPT   26
+       DB     CHAR
+  CHAR=CHAR+1
+       ENDM
+用宏定义及重复伪操作把TAB,TAB+1,TAB+2,...,TAB+16的内容存入堆栈.
+宏定义: 
+   PUSH_TAB    MACRO  K
+               PUSH    TAB+K
+               ENDM
+宏调用:
+    I=0
+             REPT    17
+             PUSH_TAB  % I
+    I=I+1
+             ENDM
+要求建立一个100D字的数组,其中每个字的内容是下一个字的地址,而最后一个字的内容是第一个字的地址.
+ARRAY     LABEL   WORD
+           REPT    99
+           DW       $+2
+           ENDM
+           DW       ARRAY
+
+  2.不定重复伪操作
+    (1)IRP伪操作
+格式是:
+     IRP   dummy,<argument list>
+        ...  (重复块)
+     ENDM
+汇编程序把重复块的代码重复几次,每次重复把重复块中的哑元用自变量表中的一项来取代,下一次取代下一项,重复次数由自变量表中的自变量个数来确定.自变量表必须用尖括号括起,它可以是常数,符号,字符串等.
+例1:
+    IRP    X,<1,2,3,4,5,6,7,8,9,10>
+    DB    X
+    ENDM
+汇编后得:
+  +     DB    1
+  +     DB    2
+       ...
+  +     DB    10
+例2:
+     IRP    REG,<AX,BX,CX,DX>
+     PUSH   REG
+     ENDM
+汇编后得:
+    +    PUSH    AX
+    +    PUSH    BX
+    +    PUSH    CX
+    +    PUSH    DX
+    (2)IRPC伪操作
+格式是:
+    IRPC     dummy,string(或<string>)
+     ...      (重复块)
+    ENDM
+IRPC和IRP类似,但自变量表必须是字符串.重复次数由字符串中的字符个数确定,每次重复用字符串中的下一个字符取代重复块中的哑元.例:
+例1:
+     IRPC      X,0 1 2 3 4 5 6 7
+     DB        X+1
+     ENDM
+汇编后得:
+   +  DB    1
+   +  DB    2
+     ...
+   +  DB    8
+例2:
+     IRPC      K,A B C D
+     PUSH      K&X
+汇编后展开形成:
+  +    PUSH   AX
+  +    PUSH   BX
+  +    PUSH   CX
+  +    PUSH   DX
+
+
+
+三、条件汇编
+   汇编程序能根据条件把一段源程序包括在汇编语言程序内或者把它排除在外,这里就用到条件伪操作.条件伪操作的一般格式是:
+    IFXX       argument
+     ...      }自变量满足给定条件汇编此块
+    [ELSE]
+     ...      }自变量不满足给定条件汇编此块
+    ENDIF
+自变量必须在汇编程序第一启遍扫视后就成为确定的数值.条件伪操作中的XX表示条件如下:
+  IF expression              汇编程序求出表达式的值,如此值不为0则满足条件.
+  IFE expression             如求出表达式的值为0则满足条件.
+  IFDEF symbol               如符号已在程序中定义,或者已用EXTRN伪操作说明该符号是在外部定义的,则
+                            满足条件.
+  IFNDEF symbol              如符号未定义或未通过EXTRN说明为外部符号则满足条件.
+  IFB <argument>             如自变量为空则满足条件
+  IFNB<argument>             如自变量不为空则满足条件
+  IFIDN <argu-1>,<argu-2>   如果字符串<arg-1>和字符串<arg-2>相同,则满足条件.
+  IFDIF <argu-1>,<argu-2>   如果字符串<arg-1>和字符串<arg-2>不相同,则满足条件.
+条件伪操作可以用在宏定义体内,也可以用在宏定义体外,也允许嵌套任意次.
+例1:宏指令MAX把三个变元中的最大值放在AX中,而且使变元数不同时产生不同的程序段.
+宏定义:
+   MAX   MACRO   K,A,B,C
+         LOCAL   NEXT,OUT
+         MOV     AX,A
+         IF      K-1
+         IF      K-2
+         CMP     C,AX
+         JLE     NEXT
+         MOV     AX,C
+         ENDIF
+  NEXT:  CMP     B,AX
+         JLE     OUT
+         MOV     AX,B
+         ENDIF
+  OUT:
+         ENDM
+宏调用:
+         MAX     1,P
+         MAX     2,P,Q
+         MAX     3,P,Q,R
+宏展开:      
+         MAX     1,P
+   +     MOV     AX,P
+   +??0001:
+         MAX     2,P,Q
+   +     MOV     AX,P
+   +??0002:CMP   Q,AX
+   +     JLE     ??0003
+   +     MOV     AX,Q
+   +??0003:
+         MAX     3,P,Q,R
+   +     MOV     AX,P
+   +     CMP     R,AX
+   +     JLE     ??0004
+   +     MOV     AX,R
+   +??0004:CMP   Q,AX
+   +     JLE     ??0005
+   +     MOV     AX,Q
+   +??0005:
+例2.宏指令GOTO   L,X,REL,Y(其中REL可以是Z,NZ,L,NL等)可以根据不同情况产生无条件转移指令或比较和条件转移指令.
+宏定义:
+    GOTO         MACRO      L,X,REL,Y
+                 JFB        <REL>
+                 JMP        L
+                 ELSE
+                 MOV        AX,X
+                 CMP        AX,Y
+                 J&REL      L
+                 ENDIF
+                 ENDM
+宏调用:
+                ...
+   GOTO         LOOP,SUM,NZ,15
+                ...
+   GOTO         EXIT
+                ...
+宏展开:
+                ...
+  +     MOV     AX,SUM
+  +     CMP     AX,15
+  +     JNZ     LOOP
+                ...
+  +     JMP     EXIT
+例3.宏定义可允许递归调用,此时条件伪操作可用来结束宏递归
+    宏指令POWER可以用来实现X和2N相乘.这只需对X左移N次可实现,可以设COUNT为递归次数的计数值,当该数与N相等时即可结束递归调用.
+宏定义:
+   POWER       MACRO        X,N
+               SAL          X,1
+   COUTN=COUT+1
+               IF           COUNT-N
+               POWER        X,N
+               ENDIF
+               ENDM
+宏调用:
+   COUTN=0
+              POWER       AX,3
+宏展开:
+    +        SAL    AX,1
+    +        SAL    AX,1
+    +        SAL    AX,1
+例4.宏指令BRANCH产生一条转向X的转移指令.当它相对于X的距离小于128字节时产生JMP   SHORT X;否则产生JMP  NEAR  PTR  X(X必须位于该转移指令之后,即低地址区).
+宏定义:
+   BRANCH    MACRO    X
+             IF     ($-X) LT 128
+                   JMP      SHORT X
+             ELSE
+                   JMP      NEAR PTR X
+             ENDIF
+             ENDM
+宏调用:
+            BRANCH   X
+宏展开:
+    如X与BRANCH指令间的距离小于128时产生
+  +   JMP   SHORT X
+否则产生:
+  +   JMP NEAR PTR X
+   
+ 
+  

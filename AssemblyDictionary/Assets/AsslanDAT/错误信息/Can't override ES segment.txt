@@ -1,0 +1,3 @@
+错误信息: Can't override ES segment
+
+中文注释: 企图非法地在一条指令中取代ES寄存器.例如:存储字符串

@@ -1,0 +1,3 @@
+错误信息: Normal type operand expected
+
+中文注释: 当需要变量,标号时,得到的却是STRUCT,FIELDS,NAMES,BYTE,WORD或DW

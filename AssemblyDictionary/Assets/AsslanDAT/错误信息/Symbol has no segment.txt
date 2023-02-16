@@ -1,0 +1,3 @@
+错误信息: Symbol has no segment
+
+中文注释: 想使用带有SEG的变量,而这个变量不能识别段

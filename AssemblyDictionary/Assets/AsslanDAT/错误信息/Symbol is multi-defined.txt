@@ -1,0 +1,3 @@
+错误信息: Symbol is multi-defined
+
+中文注释: 重复定义一个符号

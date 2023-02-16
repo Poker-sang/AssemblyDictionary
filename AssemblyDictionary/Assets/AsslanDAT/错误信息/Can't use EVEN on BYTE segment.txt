@@ -1,0 +1,3 @@
+错误信息: Can't use EVEN on BYTE segment
+
+中文注释: 被提出的一个字节段,但试图使用EVEN

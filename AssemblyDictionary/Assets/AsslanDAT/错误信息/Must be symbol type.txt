@@ -1,0 +1,3 @@
+错误信息: Must be symbol type
+
+中文注释: 必须是WORD,DW,QW,BYTE或TB,但接收的是其它内容

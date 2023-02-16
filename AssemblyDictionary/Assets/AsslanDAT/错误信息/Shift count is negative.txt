@@ -1,0 +1,3 @@
+错误信息: Shift count is negative
+
+中文注释: 移位表达式产生的移位计数值为负数

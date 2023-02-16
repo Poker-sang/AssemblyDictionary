@@ -1,0 +1,35 @@
+<Page
+    x:Class="AssemblyDictionary.NavigationViewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:local="using:AssemblyDictionary"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="Transparent"
+    NavigationCacheMode="Disabled"
+    mc:Ignorable="d">
+    <NavigationView
+        x:Name="NavigationView"
+        AlwaysShowHeader="True"
+        IsBackButtonVisible="Collapsed"
+        IsPaneToggleButtonVisible="False"
+        IsSettingsVisible="False"
+        ItemInvoked="ItemInvoked"
+        PaneDisplayMode="Left">
+        <NavigationView.MenuItemTemplate>
+            <DataTemplate x:DataType="local:FileItem">
+                <NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind Fullname}" />
+            </DataTemplate>
+        </NavigationView.MenuItemTemplate>
+        <controls:DockPanel>
+            <labs:PropertySizer
+                HorizontalAlignment="Left"
+                Binding="{x:Bind NavigationView.OpenPaneLength, Mode=TwoWay}"
+                Maximum="440"
+                Minimum="{x:Bind NavigationView.CompactPaneLength}" />
+            <Frame x:Name="Frame" />
+        </controls:DockPanel>
+    </NavigationView>
+</Page>

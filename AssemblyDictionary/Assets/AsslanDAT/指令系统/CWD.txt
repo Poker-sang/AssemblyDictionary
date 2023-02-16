@@ -1,0 +1,20 @@
+ 字扩展指令 CWD(Convert Word to Double Word)  
+
+ 格式: CWD 
+ ----
+
+ 功能: 将字扩展为双字长,即把AX寄存器的符号位扩展到DX中.
+ ----
+
+ 说明: 1. 两个字或字节相除时,先用本指令形成一个双字长的的被除数. 
+ ----   
+       2. 本指令不影响标志位.
+
+       3. 示例: 在B1、B2、B3字节类型变量中,分别存有8们带符号数a、b、c,实现(a*b+c)/a运算。程序如下: 
+                MOV AL,B1 ;   a-->(AL) 
+                IMUL B2   ;   实现a*b-->(AX) 
+                MOV CX,AX ;   (AX)-->(CX) 
+                MOV AL,B3 ;   c-->(AL) 
+                CBW       ;   扩展符号位至AH中 
+                ADD AX,CX ;   (AX)+(CX)-->(AX),完成a*b+c 
+                IDIV B1   ;   完成(a*b+c)/a,商-->(AL),余数-->(AH)

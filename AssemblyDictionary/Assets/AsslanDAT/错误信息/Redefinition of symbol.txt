@@ -1,0 +1,3 @@
+错误信息: Redefinition of symbol
+
+中文注释: 在第二遍扫视时,接着又定义一个符号

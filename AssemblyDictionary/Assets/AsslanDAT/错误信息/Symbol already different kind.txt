@@ -1,0 +1,3 @@
+错误信息: Symbol already different kind
+
+中文注释: 企图定义与以前定义不同的符号
