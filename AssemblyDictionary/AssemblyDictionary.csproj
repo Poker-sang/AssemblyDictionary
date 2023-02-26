@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+        <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
         <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
         <RootNamespace>AssemblyDictionary</RootNamespace>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -35,7 +35,7 @@
         <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
         <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.14" />
         <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
-        <PackageReference Include="WinUI3Utilities" Version="1.0.9.5" />
+        <PackageReference Include="WinUI3Utilities" Version="1.0.10" />
         <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
 

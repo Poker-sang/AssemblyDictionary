@@ -13,11 +13,16 @@
     <NavigationView
         x:Name="NavigationView"
         AlwaysShowHeader="True"
-        IsBackButtonVisible="Collapsed"
+        BackRequested="BackRequested"
+        IsBackEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}"
         IsPaneToggleButtonVisible="False"
         IsSettingsVisible="False"
         ItemInvoked="ItemInvoked"
+        KeyUp="OnKeyUp"
         PaneDisplayMode="Left">
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox TextChanged="OnTextChanged" />
+        </NavigationView.AutoSuggestBox>
         <NavigationView.MenuItemTemplate>
             <DataTemplate x:DataType="local:FileItem">
                 <NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind Fullname}" />
