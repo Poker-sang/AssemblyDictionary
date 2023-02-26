@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using WinUI3Utilities;
 
 namespace AssemblyDictionary;
+
 public record FileItem(string Name, string Fullname);
 
 public sealed partial class MainWindow : Window

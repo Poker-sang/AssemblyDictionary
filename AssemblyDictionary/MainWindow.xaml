@@ -12,15 +12,22 @@
         <Border
             x:Name="TitleBar"
             Height="32"
+            Margin="10,0"
             VerticalAlignment="Top"
             controls:DockPanel.Dock="Top"
             IsHitTestVisible="True">
-            <TextBlock
-                x:Name="TitleTextBlock"
-                Margin="20,0"
-                VerticalAlignment="Center"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{x:Bind helper:CurrentContext.Title}" />
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Width="16"
+                    Height="16"
+                    Source="{x:Bind local:DocResources.IconPath}" />
+                <TextBlock
+                    x:Name="TitleTextBlock"
+                    Margin="20,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind helper:CurrentContext.Title}" />
+            </StackPanel>
         </Border>
         <NavigationView
             x:Name="NavigationView"
