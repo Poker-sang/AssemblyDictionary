@@ -5,13 +5,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:AssemblyDictionary"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uiControls="using:CommunityToolkit.WinUI.UI.Controls"
     Background="Transparent"
     NavigationCacheMode="Disabled"
     mc:Ignorable="d">
-    <ScrollViewer>
-        <TextBox
-            Margin="50"
-            AcceptsReturn="True"
-            FontFamily="JetBrains Mono" />
-    </ScrollViewer>
+    <uiControls:DockPanel Margin="50">
+        <CommandBar
+            uiControls:DockPanel.Dock="Top"
+            DefaultLabelPosition="Right"
+            OverflowButtonVisibility="Collapsed">
+            <AppBarButton
+                Icon="Refresh"
+                Label="重新读取"
+                Tapped="RefreshTapped" />
+            <AppBarButton
+                Icon="Save"
+                Label="保存"
+                Tapped="SaveTapped" />
+        </CommandBar>
+        <TeachingTip
+            x:Name="SnackBar"
+            uiControls:DockPanel.Dock="Bottom"
+            IsLightDismissEnabled="True">
+            <TeachingTip.IconSource>
+                <SymbolIconSource Symbol="Accept" />
+            </TeachingTip.IconSource>
+        </TeachingTip>
+        <ScrollViewer>
+            <TextBox
+                x:Name="TextBox"
+                AcceptsReturn="True"
+                FontFamily="JetBrains Mono" />
+        </ScrollViewer>
+    </uiControls:DockPanel>
 </Page>
