@@ -31,9 +31,10 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Labs.WinUI.SizerBase" Version="0.0.4" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230118.102" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
         <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-        <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.14" />
+        <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.16" />
         <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
         <PackageReference Include="WinUI3Utilities" Version="1.0.10" />
         <Manifest Include="$(ApplicationManifest)" />

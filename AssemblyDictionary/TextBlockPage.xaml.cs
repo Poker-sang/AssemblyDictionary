@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using WinUI3Utilities;
 
@@ -12,23 +14,26 @@ public sealed partial class TextBlockPage : Page
 {
     public TextBlockPage() => InitializeComponent();
 
+    private readonly TextBlockPageViewModel _vm = new();
+
     public string Parameter { get; private set; } = "";
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         Parameter = e.Parameter.To<string>();
-        TextBox.Text = File.ReadAllText(Parameter);
+        TextBox.Text = await File.ReadAllTextAsync(Parameter);
     }
 
-    private void RefreshTapped(object sender, TappedRoutedEventArgs e)
+    private async void RefreshTapped(object sender, ICustomQueryInterface e)
     {
-        TextBox.Text = File.ReadAllText(Parameter);
+        TextBox.Text = await File.ReadAllTextAsync(Parameter);
         FadeOut("已从硬盘重新读取", Parameter);
     }
 
-    private void SaveTapped(object sender, TappedRoutedEventArgs e)
+    private async void SaveTapped(object sender, ICustomQueryInterface e)
     {
-        File.WriteAllText(Parameter, TextBox.Text);
+        await File.WriteAllLinesAsync(Parameter, TextBox.Text.Split("\r\n").Select(s => s.TrimEnd()));
+        TextBox.Text = await File.ReadAllTextAsync(Parameter);
         FadeOut("已保存到路径", Parameter);
     }
 
@@ -43,10 +48,10 @@ public sealed partial class TextBlockPage : Page
         SnackBar.Title = title;
         SnackBar.Subtitle = subtitle;
 
-        _ = SnackBar.IsOpen = true;
+        SnackBar.IsOpen = true;
         await Task.Delay(mSec);
         if (DateTime.Now > _closeSnakeBarTime)
-            _ = SnackBar.IsOpen = false;
+            SnackBar.IsOpen = false;
     }
 
     #endregion

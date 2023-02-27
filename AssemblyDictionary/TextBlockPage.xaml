@@ -2,6 +2,7 @@
     x:Class="AssemblyDictionary.TextBlockPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:AssemblyDictionary"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,19 +10,44 @@
     Background="Transparent"
     NavigationCacheMode="Disabled"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
     <uiControls:DockPanel Margin="50">
         <CommandBar
             uiControls:DockPanel.Dock="Top"
             DefaultLabelPosition="Right"
             OverflowButtonVisibility="Collapsed">
+            <AppBarToggleButton
+                Icon="Edit"
+                IsChecked="{x:Bind _vm.IsEditing, Mode=TwoWay}"
+                Label="编辑">
+                <AppBarToggleButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="E" Modifiers="Control" />
+                </AppBarToggleButton.KeyboardAccelerators>
+            </AppBarToggleButton>
             <AppBarButton
                 Icon="Refresh"
                 Label="重新读取"
-                Tapped="RefreshTapped" />
+                Tapped="RefreshTapped">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator
+                        Key="R"
+                        Invoked="RefreshTapped"
+                        Modifiers="Control" />
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
             <AppBarButton
                 Icon="Save"
                 Label="保存"
-                Tapped="SaveTapped" />
+                Tapped="SaveTapped">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator
+                        Key="S"
+                        Invoked="SaveTapped"
+                        Modifiers="Control" />
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
         </CommandBar>
         <TeachingTip
             x:Name="SnackBar"
@@ -32,10 +58,18 @@
             </TeachingTip.IconSource>
         </TeachingTip>
         <ScrollViewer>
-            <TextBox
-                x:Name="TextBox"
-                AcceptsReturn="True"
-                FontFamily="JetBrains Mono" />
+            <Grid>
+                <uiControls:MarkdownTextBlock
+                    Background="Transparent"
+                    FontFamily="JetBrains Mono"
+                    Text="{x:Bind TextBox.Text, Mode=OneWay}"
+                    Visibility="{x:Bind _vm.IsNotEditing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+                <TextBox
+                    x:Name="TextBox"
+                    AcceptsReturn="True"
+                    FontFamily="JetBrains Mono"
+                    Visibility="{x:Bind _vm.IsEditing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+            </Grid>
         </ScrollViewer>
     </uiControls:DockPanel>
 </Page>
