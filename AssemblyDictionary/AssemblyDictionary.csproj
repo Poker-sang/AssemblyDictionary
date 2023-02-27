@@ -12,7 +12,6 @@
         <EnableMsixTooling>true</EnableMsixTooling>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
-        <EnablePreviewFeatures>true</EnablePreviewFeatures>
     </PropertyGroup>
     <ItemGroup>
         <None Remove="NavigationViewPage.xaml" />
