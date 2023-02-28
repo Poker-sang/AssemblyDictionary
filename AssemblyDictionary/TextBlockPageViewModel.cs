@@ -9,4 +9,7 @@ public partial class TextBlockPageViewModel : ObservableObject
     private bool _isEditing = true;// TODO: markdown显示不好看
 
     public bool IsNotEditing => !IsEditing;
+
+    [ObservableProperty]
+    private bool _isWrapping;
 }

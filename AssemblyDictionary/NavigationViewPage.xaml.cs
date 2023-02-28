@@ -20,7 +20,13 @@ public sealed partial class NavigationViewPage : Page
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         NavigationView.MenuItemsSource = Directory.GetFileSystemEntries(e.Parameter.To<string>())
-            .Select(t => new FileItem(Path.GetFileNameWithoutExtension(t).Replace('_', '/').Replace('!', '?'), t));
+            .SelectMany(t => Path.GetFileNameWithoutExtension(t)
+                .Replace("%2F", "/", StringComparison.OrdinalIgnoreCase)
+                .Replace("%3F", "?", StringComparison.OrdinalIgnoreCase)
+                .Replace("%26", "&")
+                .Split('&')
+                .Select(s => new FileItem(s, t)))
+            .OrderBy(t => t.Name);
     }
 
     private FileItem? _currentSelection;
@@ -54,6 +60,7 @@ public sealed partial class NavigationViewPage : Page
 
     private void TryNavigate(FileItem item)
     {
+        NavigationView.Header = item.Name;
         if (item.Fullname == _currentSelection?.Fullname)
             return;
         _currentSelection = item;
@@ -61,7 +68,6 @@ public sealed partial class NavigationViewPage : Page
             _ = Frame.Navigate(typeof(TextBlockPage), item.Fullname);
         else if (File.Exists(item.Fullname))
             _ = Frame.Navigate(typeof(TextBlockPage), item.Fullname);
-        NavigationView.Header = item.Name;
     }
 
     #region 快捷键

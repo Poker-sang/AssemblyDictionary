@@ -25,7 +25,9 @@
             <KeyboardAccelerator Key="PageUp" Invoked="PageUp" />
             <KeyboardAccelerator Key="PageDown" Invoked="PageDown" />
         </NavigationView.KeyboardAccelerators>
-        <NavigationView.AutoSuggestBox />
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox TextChanged="TextChanged" />
+        </NavigationView.AutoSuggestBox>
         <NavigationView.MenuItemTemplate>
             <DataTemplate x:DataType="local:FileItem">
                 <NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind Fullname}" />

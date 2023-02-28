@@ -1,12 +1,1 @@
- 减法指令SUB(SUBtract) 
-
- 格式: SUB OPRD1,OPRD2 
- ----
-
- 功能: 两个操作数的相减,即从OPRD1中减去OPRD2,其结果放在OPDR1中. 指令的类型及对标志位的影响与ADD指令相同,  ----  注意立即数不能用于目的操作数,两个存储器操作数之间不能直接相减.操作数可为8位或16位的无符号数或带符        号数. 
-
- 说明: 示例  SUB DX,CX 
- ----        SUB [BX+25],AX 
-             SUB DI,ALFA[SI] 
-             SUB CL,20 
-             SUB DATA1[DI][BX],20A5H
+ 减法指令SUB(SUBtract)  格式: SUB OPRD1,OPRD2  ---- 功能: 两个操作数的相减,即从OPRD1中减去OPRD2,其结果放在OPDR1中. 指令的类型及对标志位的影响与ADD指令相同, ----  注意立即数不能用于目的操作数,两个存储器操作数之间不能直接相减.操作数可为8位或16位的无符号数或带符       号数.  说明: 示例  SUB DX,CX  ----        SUB [BX+25],AX              SUB DI,ALFA[SI]              SUB CL,20              SUB DATA1[DI][BX],20A5H

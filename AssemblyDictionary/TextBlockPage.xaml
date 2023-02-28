@@ -2,7 +2,7 @@
     x:Class="AssemblyDictionary.TextBlockPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
+    xmlns:ctkConverters="using:CommunityToolkit.WinUI.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:AssemblyDictionary"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,13 +11,25 @@
     NavigationCacheMode="Disabled"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <ctkConverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter" />
     </Page.Resources>
     <uiControls:DockPanel Margin="50">
         <CommandBar
             uiControls:DockPanel.Dock="Top"
             DefaultLabelPosition="Right"
             OverflowButtonVisibility="Collapsed">
+            <AppBarToggleButton
+                IsChecked="{x:Bind _vm.IsWrapping, Mode=TwoWay}"
+                IsEnabled="{x:Bind _vm.IsEditing, Mode=OneWay}"
+                Label="自动换行">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE751;" />
+                </AppBarToggleButton.Icon>
+                <AppBarToggleButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="W" Modifiers="Control" />
+                </AppBarToggleButton.KeyboardAccelerators>
+            </AppBarToggleButton>
             <AppBarToggleButton
                 Icon="Edit"
                 IsChecked="{x:Bind _vm.IsEditing, Mode=TwoWay}"
@@ -68,6 +80,7 @@
                     x:Name="TextBox"
                     AcceptsReturn="True"
                     FontFamily="JetBrains Mono"
+                    TextWrapping="{x:Bind _vm.IsWrapping, Converter={StaticResource BoolToTextWrappingConverter}, Mode=OneWay}"
                     Visibility="{x:Bind _vm.IsEditing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
             </Grid>
         </ScrollViewer>
