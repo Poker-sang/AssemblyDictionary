@@ -14,7 +14,7 @@
         x:Name="NavigationView"
         AlwaysShowHeader="True"
         BackRequested="BackRequested"
-        IsBackEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}"
+        IsBackEnabled="{x:Bind NavFrame.CanGoBack, Mode=OneWay}"
         IsPaneToggleButtonVisible="False"
         IsSettingsVisible="False"
         ItemInvoked="ItemInvoked"
@@ -30,7 +30,7 @@
         </NavigationView.AutoSuggestBox>
         <NavigationView.MenuItemTemplate>
             <DataTemplate x:DataType="local:FileItem">
-                <NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind Fullname}" />
+                <NavigationViewItem Content="{x:Bind Name}" Tag="{x:Bind}" />
             </DataTemplate>
         </NavigationView.MenuItemTemplate>
         <controls:DockPanel>
@@ -39,7 +39,7 @@
                 Binding="{x:Bind NavigationView.OpenPaneLength, Mode=TwoWay}"
                 Maximum="440"
                 Minimum="{x:Bind NavigationView.CompactPaneLength}" />
-            <Frame x:Name="Frame" />
+            <Frame x:Name="NavFrame" />
         </controls:DockPanel>
     </NavigationView>
 </Page>

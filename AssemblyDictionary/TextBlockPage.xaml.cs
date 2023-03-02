@@ -16,25 +16,27 @@ public sealed partial class TextBlockPage : Page
 
     private readonly TextBlockPageViewModel _vm = new();
 
-    public string Parameter { get; private set; } = "";
+    public FileItem FileItem { get; private set; } = null!;
+
+    private string FullName => FileItem.Fullname;
 
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
-        Parameter = e.Parameter.To<string>();
-        TextBox.Text = await File.ReadAllTextAsync(Parameter);
+        FileItem = e.Parameter.To<FileItem>();
+        TextBox.Text = await File.ReadAllTextAsync(FullName);
     }
 
     private async void RefreshTapped(object sender, ICustomQueryInterface e)
     {
-        TextBox.Text = await File.ReadAllTextAsync(Parameter);
-        FadeOut("已从硬盘重新读取", Parameter);
+        TextBox.Text = await File.ReadAllTextAsync(FullName);
+        FadeOut("已从硬盘重新读取", FullName);
     }
 
     private async void SaveTapped(object sender, ICustomQueryInterface e)
     {
-        await File.WriteAllLinesAsync(Parameter, TextBox.Text.Split("\r\n").Select(s => s.TrimEnd()));
-        TextBox.Text = await File.ReadAllTextAsync(Parameter);
-        FadeOut("已保存到路径", Parameter);
+        await File.WriteAllLinesAsync(FullName, TextBox.Text.Split("\r\n").Select(s => s.TrimEnd()));
+        TextBox.Text = await File.ReadAllTextAsync(FullName);
+        FadeOut("已保存到路径", FullName);
     }
 
     #region SnackBar功能
