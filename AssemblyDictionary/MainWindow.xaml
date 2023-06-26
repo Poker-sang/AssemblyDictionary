@@ -2,19 +2,22 @@
     x:Class="AssemblyDictionary.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="using:WinUI3Utilities"
     xmlns:local="using:AssemblyDictionary"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <controls:DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Border
             x:Name="TitleBar"
+            Grid.Row="0"
             Height="32"
             Margin="10,0"
             VerticalAlignment="Top"
-            controls:DockPanel.Dock="Top"
             IsHitTestVisible="True">
             <StackPanel Orientation="Horizontal">
                 <Image
@@ -31,6 +34,7 @@
         </Border>
         <NavigationView
             x:Name="NavigationView"
+            Grid.Row="1"
             CompactPaneLength="0"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
@@ -43,5 +47,5 @@
             </NavigationView.MenuItemTemplate>
             <Frame x:Name="NavigateFrame" />
         </NavigationView>
-    </controls:DockPanel>
+    </Grid>
 </Window>

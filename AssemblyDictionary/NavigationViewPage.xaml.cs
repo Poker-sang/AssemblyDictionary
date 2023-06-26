@@ -4,11 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using CommunityToolkit.Labs.WinUI.SizerBaseLocal;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using WinUI3Utilities;
-using Microsoft.UI.Xaml;
 
 namespace AssemblyDictionary;
 

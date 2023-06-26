@@ -34,6 +34,6 @@ public sealed partial class MainWindow : Window
         if (Directory.Exists(_lastPath))
             NavigationHelper.GotoPage<NavigationViewPage>(_lastPath);
         else if (File.Exists(_lastPath))
-            NavigationHelper.GotoPage<TextBlockPage>(_lastPath);
+            NavigationHelper.GotoPage<TextBlockPage>(fi);
     }
 }

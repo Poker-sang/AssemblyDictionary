@@ -14,9 +14,13 @@
         <ctkConverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter" />
     </Page.Resources>
-    <uiControls:DockPanel Margin="50">
+    <Grid Margin="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <CommandBar
-            uiControls:DockPanel.Dock="Top"
+            Grid.Row="0"
             DefaultLabelPosition="Right"
             OverflowButtonVisibility="Collapsed">
             <AppBarToggleButton
@@ -63,13 +67,13 @@
         </CommandBar>
         <TeachingTip
             x:Name="SnackBar"
-            uiControls:DockPanel.Dock="Bottom"
+            Grid.Row="1"
             IsLightDismissEnabled="True">
             <TeachingTip.IconSource>
                 <SymbolIconSource Symbol="Accept" />
             </TeachingTip.IconSource>
         </TeachingTip>
-        <ScrollViewer>
+        <ScrollViewer Grid.Row="1">
             <Grid>
                 <uiControls:MarkdownTextBlock
                     Background="Transparent"
@@ -84,5 +88,5 @@
                     Visibility="{x:Bind _vm.IsEditing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
             </Grid>
         </ScrollViewer>
-    </uiControls:DockPanel>
+    </Grid>
 </Page>
