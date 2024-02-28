@@ -2,7 +2,6 @@ using System.IO;
 using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using WinUI3Utilities;
 
 namespace AssemblyDictionary;
 
@@ -12,13 +11,7 @@ public sealed partial class MainWindow : Window
 {
     public MainWindow()
     {
-        CurrentContext.Window = this;
         InitializeComponent();
-        CurrentContext.TitleBar = TitleBar;
-        CurrentContext.TitleTextBlock = TitleTextBlock;
-        CurrentContext.NavigationView = NavigationView;
-        CurrentContext.Frame = NavigationView.Content.To<Frame>();
-        //CurrentContext.AppTitleBar.SetDragRectangles();
 
         NavigationView.MenuItemsSource = Directory.GetFileSystemEntries(DocResources.ResourcePath).Select(t => new FileItem(Path.GetFileNameWithoutExtension(t), t));
     }
@@ -32,8 +25,8 @@ public sealed partial class MainWindow : Window
         else
             return;
         if (Directory.Exists(_lastPath))
-            NavigationHelper.GotoPage<NavigationViewPage>(_lastPath);
+            _ = NavigateFrame.Navigate(typeof(NavigationViewPage), _lastPath);
         else if (File.Exists(_lastPath))
-            NavigationHelper.GotoPage<TextBlockPage>(fi);
+            _ = NavigateFrame.Navigate(typeof(TextBlockPage), fi);
     }
 }

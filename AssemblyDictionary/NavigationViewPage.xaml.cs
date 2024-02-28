@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using CommunityToolkit.Labs.WinUI.SizerBaseLocal;
+using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -38,7 +38,7 @@ public sealed partial class NavigationViewPage : Page
     private void ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs e)
     {
         if (_firstTime)
-            _items = NavigationView.FindDescendants<NavigationViewItem>().ToDictionary(t => t.GetTag<FileItem>(), t => t);
+            _items = NavigationView.FindDescendants().OfType<NavigationViewItem>().ToDictionary(t => t.GetTag<FileItem>(), t => t);
         if (e.InvokedItem is not FileItem fi)
             return;
         TryNavigate(fi);

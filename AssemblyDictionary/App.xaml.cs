@@ -5,19 +5,21 @@ namespace AssemblyDictionary;
 
 public partial class App : Application
 {
-    public App()
-    {
-        InitializeComponent();
-        CurrentContext.Title = "指令字典";
-    }
+    public const string Title = "指令字典";
+
+    public App() => InitializeComponent();
+
+    private static MainWindow _mainWindow = null!;
 
     protected override void OnLaunched(LaunchActivatedEventArgs e)
     {
-        _ = new MainWindow();
-        AppHelper.Initialize(new()
+        _mainWindow = new();
+        _mainWindow.Initialize(new()
         {
+            Title = Title,
+            IconPath = DocResources.IconIcoPath,
             Size = WindowHelper.EstimatedWindowSize()
         });
-        CurrentContext.App.Resources["NavigationViewContentMargin"] = new Thickness(0);
+        _mainWindow.Activate();
     }
 }
